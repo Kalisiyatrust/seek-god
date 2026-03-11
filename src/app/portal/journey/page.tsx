@@ -46,7 +46,7 @@ export default function JourneyPage() {
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="bg-card border border-border rounded-xl p-6"
+        className="bg-white dark:bg-card border border-border rounded-xl p-6 shadow-sm"
       >
         <h2 className="font-semibold text-lg mb-6">Journey Map</h2>
         <div className="relative">
@@ -109,7 +109,7 @@ export default function JourneyPage() {
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.15 }}
-        className="bg-card border border-border rounded-xl p-6"
+        className="bg-white dark:bg-card border border-border rounded-xl p-6 shadow-sm"
       >
         <h2 className="font-semibold text-lg mb-4">Milestones</h2>
         <div className="space-y-3">
@@ -150,7 +150,7 @@ export default function JourneyPage() {
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.2 }}
-        className="bg-card border border-border rounded-xl p-6"
+        className="bg-white dark:bg-card border border-border rounded-xl p-6 shadow-sm"
       >
         <h2 className="font-semibold text-lg mb-4">Assessments</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
