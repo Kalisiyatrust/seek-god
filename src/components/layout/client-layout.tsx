@@ -1,9 +1,12 @@
 'use client';
 
+import { Suspense } from 'react';
 import { usePathname } from 'next/navigation';
 import { MobileBottomNav } from './mobile-bottom-nav';
 import { QuickAccessBar } from './quick-access-bar';
 import { ChatWidget } from '@/components/chat/chat-widget';
+import { EmailPopup } from '@/components/marketing/email-popup';
+import { ReferralTracker } from '@/components/marketing/referral-tracker';
 
 export function ClientLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -18,6 +21,10 @@ export function ClientLayout({ children }: { children: React.ReactNode }) {
       </div>
       {!isDashboard && !isAuth && <MobileBottomNav />}
       {!isDashboard && !isAuth && <ChatWidget />}
+      {!isDashboard && !isAuth && <EmailPopup />}
+      <Suspense fallback={null}>
+        <ReferralTracker />
+      </Suspense>
     </>
   );
 }

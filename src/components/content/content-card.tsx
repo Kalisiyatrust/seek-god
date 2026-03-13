@@ -1,8 +1,9 @@
 'use client';
 
+import { useState } from 'react';
 import { cn } from '@/lib/utils';
 import { ContentItem } from '@/types';
-import { Play, Headphones, BookOpen, FileText, Quote, Lock, Eye, Heart } from 'lucide-react';
+import { Play, Headphones, BookOpen, FileText, Quote, Lock, Eye, Heart, Share2, Check } from 'lucide-react';
 import Link from 'next/link';
 
 const typeConfig: Record<string, { icon: React.ReactNode; color: string; label: string; route: string }> = {
@@ -12,6 +13,36 @@ const typeConfig: Record<string, { icon: React.ReactNode; color: string; label: 
   book_summary: { icon: <BookOpen className="w-4 h-4" />, color: 'bg-emerald-100 text-emerald-700', label: 'Book', route: '/content/books' },
   quote: { icon: <Quote className="w-4 h-4" />, color: 'bg-gold-100 text-gold-700', label: 'Quote', route: '/content' },
 };
+
+function ShareButton({ contentId, type }: { contentId: string; type: string }) {
+  const [copied, setCopied] = useState(false);
+  const config = typeConfig[type] || typeConfig.blog;
+  const shareUrl = typeof window !== 'undefined'
+    ? `${window.location.origin}${config.route}#${contentId}?ref=share`
+    : `https://seek-god.com${config.route}#${contentId}?ref=share`;
+
+  async function handleShare(e: React.MouseEvent) {
+    e.stopPropagation();
+    e.preventDefault();
+    try {
+      await navigator.clipboard.writeText(shareUrl);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      // silent fail
+    }
+  }
+
+  return (
+    <button
+      onClick={handleShare}
+      title={copied ? 'Link copied!' : 'Share'}
+      className="rounded-full p-1.5 text-muted-foreground hover:text-primary hover:bg-primary/10 transition-colors"
+    >
+      {copied ? <Check className="w-3.5 h-3.5 text-emerald-500" /> : <Share2 className="w-3.5 h-3.5" />}
+    </button>
+  );
+}
 
 interface ContentCardProps {
   content: ContentItem;
@@ -60,6 +91,7 @@ export function ContentCard({ content, size = 'medium', showPremiumLock = false 
               <div className="flex items-center gap-3">
                 <span className="flex items-center gap-1"><Eye className="w-3 h-3" /> {content.views.toLocaleString()}</span>
                 <span className="flex items-center gap-1"><Heart className="w-3 h-3" /> {content.likes.toLocaleString()}</span>
+                <ShareButton contentId={content.id} type={content.type} />
               </div>
             </div>
           </div>
@@ -116,7 +148,10 @@ export function ContentCard({ content, size = 'medium', showPremiumLock = false 
         )}
         <div className={cn('flex items-center justify-between text-muted-foreground mt-auto', size === 'small' ? 'text-[10px]' : 'text-xs')}>
           <span>{content.duration}</span>
-          <span className="flex items-center gap-1"><Eye className="w-3 h-3" /> {content.views.toLocaleString()}</span>
+          <div className="flex items-center gap-2">
+            <span className="flex items-center gap-1"><Eye className="w-3 h-3" /> {content.views.toLocaleString()}</span>
+            <ShareButton contentId={content.id} type={content.type} />
+          </div>
         </div>
       </div>
     </div>

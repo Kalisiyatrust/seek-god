@@ -1,5 +1,8 @@
+'use client';
+
 import Link from 'next/link';
 import { Heart, Youtube, Twitter, Instagram, Facebook } from 'lucide-react';
+import { EmailSignup } from '@/components/marketing/email-signup';
 
 export function Footer() {
   return (
@@ -76,26 +79,12 @@ export function Footer() {
 
           {/* Newsletter */}
           <div>
-            <h4 className="font-semibold text-sm mb-4">Stay Connected</h4>
-            <p className="text-sm text-muted-foreground mb-3">
-              Get weekly insights on living with purpose.
-            </p>
-            <form
-              onSubmit={(e) => e.preventDefault()}
-              className="flex gap-2"
-            >
-              <input
-                type="email"
-                placeholder="Your email"
-                className="flex-1 rounded-full border border-input bg-background px-4 py-2 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
-              />
-              <button
-                type="submit"
-                className="rounded-full bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:opacity-90 transition-opacity"
-              >
-                Join
-              </button>
-            </form>
+            <EmailSignup
+              variant="inline"
+              heading="Stay Connected"
+              subtext="Get weekly insights on living with purpose."
+              buttonText="Join"
+            />
 
             {/* Social */}
             <div className="flex gap-3 mt-4">

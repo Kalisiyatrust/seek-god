@@ -2,6 +2,7 @@ import { Contact, ContentItem, DashboardStats, ReportData, AIAgent, Conversation
 import { videoSummaries } from '@/lib/content/video-summaries';
 import { blogArticles } from '@/lib/content/blog-articles';
 import { audioGuides } from '@/lib/content/audio-guides';
+import { themedSeries } from '@/lib/content/themed-series';
 
 // ============================================
 // Mock Data for Development & Demo
@@ -140,6 +141,7 @@ export const mockContent: ContentItem[] = [
   ...videoSummaries,
   ...blogArticles,
   ...audioGuides,
+  ...themedSeries,
 ];
 
 export const mockConversations: Conversation[] = [

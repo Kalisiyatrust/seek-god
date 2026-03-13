@@ -23,6 +23,7 @@ import {
 } from 'lucide-react';
 import { Navbar } from '@/components/layout/navbar';
 import { Footer } from '@/components/layout/footer';
+import { EmailSignup } from '@/components/marketing/email-signup';
 import { mockContent } from '@/lib/mock-data';
 
 /* ------------------------------------------------------------------ */
@@ -489,6 +490,18 @@ export default function LandingPage() {
           </div>
         </Section>
 
+        {/* ========== NEWSLETTER BANNER ========== */}
+        <Section className="py-16 sm:py-20 px-4">
+          <div className="mx-auto max-w-3xl">
+            <EmailSignup
+              variant="banner"
+              heading="Get Weekly Purpose Insights"
+              subtext="Join 5,000+ purpose-driven individuals receiving our weekly insights on meaning, faith, and fulfillment."
+              buttonText="Subscribe Free"
+            />
+          </div>
+        </Section>
+
         {/* ========== CTA ========== */}
         <Section className="py-16 sm:py-20 px-4">
           <div className="mx-auto max-w-2xl text-center">
@@ -499,22 +512,7 @@ export default function LandingPage() {
               Join 2,800+ people who have discovered their purpose and are
               making a lasting impact in the world.
             </p>
-            <form
-              onSubmit={(e) => e.preventDefault()}
-              className="flex flex-col sm:flex-row items-center gap-3 mx-auto max-w-md"
-            >
-              <input
-                type="email"
-                placeholder="Enter your email"
-                className="w-full rounded-full border border-input bg-background px-5 py-3 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
-              />
-              <button
-                type="submit"
-                className="w-full sm:w-auto rounded-full bg-primary px-8 py-3 text-sm font-semibold text-primary-foreground shadow-lg shadow-primary/25 hover:opacity-90 transition-opacity whitespace-nowrap"
-              >
-                Join Free
-              </button>
-            </form>
+            <EmailSignup variant="minimal" buttonText="Join Free" />
           </div>
         </Section>
       </main>

@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Inter, Playfair_Display } from 'next/font/google';
 import './globals.css';
 import { ClientLayout } from '@/components/layout/client-layout';
+import { GoogleAnalytics } from '@/components/analytics/google-analytics';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -32,6 +33,11 @@ export const metadata: Metadata = {
     description:
       'Find meaning beyond success. Join a community of purpose-driven individuals making a real impact in the world.',
   },
+  alternates: {
+    types: {
+      'application/rss+xml': '/feed.xml',
+    },
+  },
 };
 
 export default function RootLayout({
@@ -42,6 +48,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${inter.variable} ${playfair.variable} font-sans antialiased`}>
+        <GoogleAnalytics />
         <ClientLayout>{children}</ClientLayout>
       </body>
     </html>
