@@ -19,7 +19,7 @@ interface ContentCardProps {
   showPremiumLock?: boolean;
 }
 
-export function ContentCard({ content, size = 'medium', showPremiumLock = true }: ContentCardProps) {
+export function ContentCard({ content, size = 'medium', showPremiumLock = false }: ContentCardProps) {
   const config = typeConfig[content.type] || typeConfig.blog;
 
   if (size === 'large') {

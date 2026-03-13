@@ -1,4 +1,7 @@
 import { Contact, ContentItem, DashboardStats, ReportData, AIAgent, Conversation, Message, LifeJourney } from '@/types';
+import { videoSummaries } from '@/lib/content/video-summaries';
+import { blogArticles } from '@/lib/content/blog-articles';
+import { audioGuides } from '@/lib/content/audio-guides';
 
 // ============================================
 // Mock Data for Development & Demo
@@ -132,79 +135,11 @@ export const mockAIAgents: AIAgent[] = [
   },
 ];
 
+// Merge all 300 content items from dedicated content files
 export const mockContent: ContentItem[] = [
-  {
-    id: '1', title: 'Finding Purpose Beyond Success', type: 'video_summary',
-    category: 'Purpose', description: 'A powerful exploration of why material success alone doesn\'t bring fulfillment.',
-    content: 'This talk explores the paradox of success — how achieving everything society tells us to pursue can still leave us feeling empty. The speaker shares research showing that purpose-driven individuals report 64% higher life satisfaction than those focused solely on material goals. Key takeaway: Purpose isn\'t found at the top of the ladder; it\'s discovered by asking who you\'re climbing for.',
-    thumbnail_url: '/images/purpose-thumb.jpg', source_attribution: 'Based on public domain motivational content',
-    author: 'Seek God Editorial', duration: '8 min read',
-    is_featured: true, is_premium: false, tags: ['purpose', 'success', 'fulfillment'],
-    views: 12400, likes: 890, created_at: '2026-02-01T10:00:00Z'
-  },
-  {
-    id: '2', title: 'The Science of Giving', type: 'blog',
-    category: 'Generosity', description: 'How neuroscience proves that giving activates the same brain regions as receiving.',
-    content: 'Research from the University of Zurich reveals that even the intention to be generous can trigger neural changes in the brain\'s reward center. The "warm glow" effect of giving isn\'t just emotional — it\'s neurological. Studies show that regular givers experience lower blood pressure, reduced stress hormones, and increased longevity. This article explores the science behind why helping others is literally good for your health.',
-    source_attribution: 'Original content by Seek God',
-    author: 'Dr. Sarah Mitchell', duration: '12 min read',
-    is_featured: true, is_premium: false, tags: ['giving', 'science', 'health', 'generosity'],
-    views: 8900, likes: 654, created_at: '2026-02-10T10:00:00Z'
-  },
-  {
-    id: '3', title: 'Man\'s Search for Meaning - Key Insights', type: 'book_summary',
-    category: 'Books', description: 'Viktor Frankl\'s timeless wisdom on finding meaning in any circumstance.',
-    content: 'Viktor Frankl, a Holocaust survivor and psychiatrist, distilled his experiences into one of the most profound books ever written. His core insight: "He who has a why to live can bear almost any how." This summary covers the three key pillars of logotherapy — the freedom to find meaning, the meaning of life, and the meaning of suffering. Frankl argues that we don\'t get to choose our suffering, but we always get to choose how we respond to it.',
-    source_attribution: 'Summary of public domain concepts from Viktor Frankl\'s philosophy',
-    author: 'Seek God Editorial', duration: '15 min read',
-    is_featured: true, is_premium: true, tags: ['books', 'meaning', 'psychology', 'resilience'],
-    views: 15600, likes: 1200, created_at: '2026-01-20T10:00:00Z'
-  },
-  {
-    id: '4', title: 'Morning Meditation for Inner Peace', type: 'audio',
-    category: 'Mindfulness', description: 'A guided 10-minute meditation to start your day with clarity and purpose.',
-    content: 'Begin your morning with this calming guided meditation that combines breathwork, gratitude practice, and purpose-setting. This session helps you center yourself before the demands of the day, creating a foundation of peace that carries through your hours.',
-    media_url: '/audio/morning-meditation.mp3', source_attribution: 'Original content by Seek God',
-    author: 'Seek God', duration: '10 min',
-    is_featured: false, is_premium: false, tags: ['meditation', 'mindfulness', 'morning', 'peace'],
-    views: 22100, likes: 1890, created_at: '2026-02-15T10:00:00Z'
-  },
-  {
-    id: '5', title: 'Why Successful People Feel Empty', type: 'video_summary',
-    category: 'Purpose', description: 'Understanding the void that achievements alone cannot fill.',
-    content: 'Despite having everything — wealth, status, recognition — many high achievers describe a persistent emptiness. This phenomenon, sometimes called "arrival fallacy," occurs when reaching a long-pursued goal doesn\'t deliver the expected happiness. The summary explores three strategies: reconnecting with values, finding contribution-based meaning, and building genuine human connections that transcend professional networks.',
-    thumbnail_url: '/images/empty-success-thumb.jpg', source_attribution: 'Based on public domain motivational content',
-    author: 'Seek God Editorial', duration: '6 min read',
-    is_featured: false, is_premium: false, tags: ['purpose', 'success', 'emptiness', 'meaning'],
-    views: 9800, likes: 720, created_at: '2026-02-20T10:00:00Z'
-  },
-  {
-    id: '6', title: 'The 7 Habits - Life Lessons', type: 'book_summary',
-    category: 'Books', description: 'Stephen Covey\'s principles for personal effectiveness and character-based living.',
-    content: 'Stephen Covey\'s "The 7 Habits of Highly Effective People" isn\'t really about productivity — it\'s about character. The seven habits progress from dependence to independence to interdependence. The most transformative? Habit 2: Begin with the End in Mind. It asks you to write your own eulogy — what do you want people to say about you? This exercise reveals that nobody wishes they had worked more; they wish they had loved more and served more.',
-    source_attribution: 'Summary of concepts from Stephen Covey\'s public teachings',
-    author: 'Seek God Editorial', duration: '14 min read',
-    is_featured: false, is_premium: true, tags: ['books', 'habits', 'effectiveness', 'character'],
-    views: 11200, likes: 890, created_at: '2026-03-01T10:00:00Z'
-  },
-  {
-    id: '7', title: 'How Donations Transform Communities', type: 'blog',
-    category: 'Impact', description: 'Real stories of how small acts of giving created massive ripple effects.',
-    content: 'When Maria donated just £50 to a village school in Kenya, she didn\'t expect what happened next. That single contribution inspired her network of friends to collectively raise £25,000, which built an entire wing of classrooms. This article shares five such stories where individual generosity sparked community transformation, proving that the size of the gift matters less than the intention behind it.',
-    source_attribution: 'Original content by Seek God',
-    author: 'Seek God Editorial', duration: '10 min read',
-    is_featured: false, is_premium: false, tags: ['donations', 'impact', 'community', 'stories'],
-    views: 7600, likes: 580, created_at: '2026-03-05T10:00:00Z'
-  },
-  {
-    id: '8', title: 'Evening Gratitude Practice', type: 'audio',
-    category: 'Mindfulness', description: 'Wind down your day with this reflective gratitude meditation.',
-    content: 'End your day by reflecting on what went well, who you helped, and what you\'re grateful for. This guided session helps you process the day\'s events through a lens of gratitude and purpose, promoting restful sleep and a positive mindset for tomorrow.',
-    media_url: '/audio/evening-gratitude.mp3', source_attribution: 'Original content by Seek God',
-    author: 'Seek God', duration: '12 min',
-    is_featured: false, is_premium: true, tags: ['meditation', 'gratitude', 'evening', 'reflection'],
-    views: 18400, likes: 1540, created_at: '2026-02-25T10:00:00Z'
-  },
+  ...videoSummaries,
+  ...blogArticles,
+  ...audioGuides,
 ];
 
 export const mockConversations: Conversation[] = [

@@ -6,7 +6,8 @@ import { mockContent } from '@/lib/mock-data';
 import { Navbar } from '@/components/layout/navbar';
 import { Footer } from '@/components/layout/footer';
 import { ContentCard } from '@/components/content/content-card';
-import { Search, SlidersHorizontal } from 'lucide-react';
+import { Search, SlidersHorizontal, ArrowRight, Sparkles } from 'lucide-react';
+import Link from 'next/link';
 
 const categories = [
   { value: 'all', label: 'All' },
@@ -20,6 +21,8 @@ const categories = [
 export default function ContentPage() {
   const [search, setSearch] = useState('');
   const [activeCategory, setActiveCategory] = useState('all');
+  const [viewCount, setViewCount] = useState(0);
+  const [showSignup, setShowSignup] = useState(false);
 
   const featured = mockContent.filter(c => c.is_featured);
 
@@ -44,7 +47,7 @@ export default function ContentPage() {
             <div className="absolute bottom-10 left-10 w-48 h-48 bg-warm-200/20 rounded-full blur-3xl" />
           </div>
           <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
-            <h1 className="text-4xl sm:text-5xl font-display font-bold mb-4">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold mb-4">
               Explore Our <span className="gradient-text">Library</span>
             </h1>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8">
@@ -93,7 +96,9 @@ export default function ContentPage() {
           {/* Content Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {filtered.map(item => (
-              <ContentCard key={item.id} content={item} />
+              <div key={item.id} onClick={() => { const c = viewCount + 1; setViewCount(c); if (c >= 5) setShowSignup(true); }}>
+                <ContentCard content={item} />
+              </div>
             ))}
           </div>
 
@@ -102,9 +107,36 @@ export default function ContentPage() {
               <p className="text-muted-foreground">No content found matching your search.</p>
             </div>
           )}
+
+          {/* Signup Banner */}
+          <div className="mt-12 rounded-2xl bg-gradient-to-br from-primary/10 via-gold-50 to-warm-50 border border-primary/20 p-8 text-center">
+            <Sparkles className="w-6 h-6 text-primary mx-auto mb-3" />
+            <h3 className="text-lg font-display font-bold mb-2">Unlock Your Full Journey</h3>
+            <p className="text-sm text-muted-foreground max-w-md mx-auto mb-4">Sign up for free to get personalized recommendations, save your favorites, and access exclusive content.</p>
+            <Link href="/signup" className="inline-flex items-center gap-1.5 px-6 py-2.5 rounded-full bg-primary text-primary-foreground text-sm font-medium hover:bg-primary/90 transition-colors">
+              Sign Up Free <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
         </section>
       </main>
       <Footer />
+
+      {/* Signup Modal after 5 views */}
+      {showSignup && (
+        <div className="fixed inset-0 z-[60] flex items-center justify-center bg-black/50 backdrop-blur-sm" onClick={() => setShowSignup(false)}>
+          <div className="bg-card border border-border rounded-2xl p-8 max-w-md mx-4 text-center shadow-2xl" onClick={e => e.stopPropagation()}>
+            <Sparkles className="w-8 h-8 text-primary mx-auto mb-4" />
+            <h3 className="text-xl font-display font-bold mb-2">You&apos;re Enjoying the Content!</h3>
+            <p className="text-sm text-muted-foreground mb-6">Create a free account to continue exploring, save your progress, and unlock personalized AI guidance.</p>
+            <Link href="/signup" className="inline-flex items-center gap-1.5 px-6 py-3 rounded-full bg-primary text-primary-foreground font-medium hover:bg-primary/90 transition-colors">
+              Sign Up Free <ArrowRight className="w-4 h-4" />
+            </Link>
+            <button onClick={() => setShowSignup(false)} className="block mx-auto mt-3 text-sm text-muted-foreground hover:text-foreground">
+              Maybe later
+            </button>
+          </div>
+        </div>
+      )}
     </>
   );
 }

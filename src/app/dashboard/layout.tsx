@@ -12,6 +12,7 @@ import {
   MessageSquare,
   FileText,
   BarChart3,
+  Megaphone,
   Settings,
   ChevronLeft,
   ChevronRight,
@@ -30,6 +31,7 @@ const sidebarLinks = [
   { href: '/dashboard/conversations', label: 'Conversations', icon: MessageSquare },
   { href: '/dashboard/content-mgmt', label: 'Content', icon: FileText },
   { href: '/dashboard/reports', label: 'Reports', icon: BarChart3 },
+  { href: '/dashboard/marketing', label: 'Marketing', icon: Megaphone },
   { href: '/dashboard/settings', label: 'Settings', icon: Settings },
 ];
 

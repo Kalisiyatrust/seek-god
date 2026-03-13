@@ -156,7 +156,7 @@ export default function LandingPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.15 }}
-              className="font-display text-5xl sm:text-6xl md:text-7xl font-bold leading-tight tracking-tight mb-6"
+              className="font-display text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight tracking-tight mb-6"
             >
               Discover Your{' '}
               <span className="gradient-text">True Purpose</span>
@@ -166,7 +166,7 @@ export default function LandingPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.3 }}
-              className="mx-auto max-w-2xl text-lg sm:text-xl text-muted-foreground leading-relaxed mb-10"
+              className="mx-auto max-w-2xl text-base sm:text-lg md:text-xl text-muted-foreground leading-relaxed mb-10"
             >
               Success alone doesn&apos;t bring fulfillment. Find the deeper meaning
               behind your achievements and learn how to channel them into
@@ -277,7 +277,7 @@ export default function LandingPage() {
                 Explore powerful ideas that will reshape how you see success, purpose, and giving.
               </p>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {featuredContent.map((item, i) => (
                 <motion.div
                   key={item.id}
@@ -294,11 +294,6 @@ export default function LandingPage() {
                       <ContentIcon type={item.type} />
                       {item.type.replace('_', ' ')}
                     </span>
-                    {item.is_premium && (
-                      <span className="absolute top-3 right-3 rounded-full bg-primary px-2.5 py-0.5 text-xs font-semibold text-primary-foreground">
-                        Premium
-                      </span>
-                    )}
                   </div>
                   <div className="p-5">
                     <span className="text-xs font-medium text-primary">
@@ -343,7 +338,7 @@ export default function LandingPage() {
                 Hear from people who discovered that true success goes far beyond the material.
               </p>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {[
                 {
                   name: 'James Robertson',
@@ -481,7 +476,7 @@ export default function LandingPage() {
                 return (
                   <div key={label} ref={ref}>
                     <Icon className="h-6 w-6 text-primary mx-auto mb-2" />
-                    <p className="font-display text-3xl sm:text-4xl font-bold">
+                    <p className="font-display text-2xl sm:text-3xl md:text-4xl font-bold">
                       {prefix}
                       {count.toLocaleString()}
                       {suffix}
@@ -495,9 +490,9 @@ export default function LandingPage() {
         </Section>
 
         {/* ========== CTA ========== */}
-        <Section className="py-20 px-4">
+        <Section className="py-16 sm:py-20 px-4">
           <div className="mx-auto max-w-2xl text-center">
-            <h2 className="font-display text-3xl sm:text-4xl font-bold mb-4">
+            <h2 className="font-display text-2xl sm:text-3xl md:text-4xl font-bold mb-4">
               Ready to Begin?
             </h2>
             <p className="text-muted-foreground mb-8">

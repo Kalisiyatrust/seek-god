@@ -5,12 +5,15 @@ import { cn, formatDate } from '@/lib/utils';
 import { mockContent } from '@/lib/mock-data';
 import { Navbar } from '@/components/layout/navbar';
 import { Footer } from '@/components/layout/footer';
-import { Clock, Eye, Heart, User } from 'lucide-react';
+import { Clock, Eye, Heart, User, ArrowRight, Sparkles } from 'lucide-react';
+import Link from 'next/link';
 
-const blogCategories = ['All', 'Purpose', 'Generosity', 'Impact', 'Mindfulness'];
+const blogCategories = ['All', 'Purpose', 'Personal Growth', 'Mindfulness', 'Spirituality', 'Relationships', 'Mental Health', 'Career & Meaning', 'Community Impact', 'Science of Giving', 'Stories of Change'];
 
 export default function BlogsPage() {
   const [category, setCategory] = useState('All');
+  const [viewCount, setViewCount] = useState(0);
+  const [showSignup, setShowSignup] = useState(false);
 
   const blogs = useMemo(() => {
     const items = mockContent.filter(c => c.type === 'blog');
@@ -53,6 +56,7 @@ export default function BlogsPage() {
               {blogs.map(blog => (
                 <article
                   key={blog.id}
+                  onClick={() => { const c = viewCount + 1; setViewCount(c); if (c >= 5) setShowSignup(true); }}
                   className="content-card group bg-card border border-border rounded-xl overflow-hidden cursor-pointer"
                 >
                   <div className="flex flex-col sm:flex-row">
@@ -86,11 +90,38 @@ export default function BlogsPage() {
               {blogs.length === 0 && (
                 <div className="py-20 text-center text-muted-foreground">No blog posts found in this category.</div>
               )}
+
+              {/* Signup Banner */}
+              <div className="mt-8 rounded-2xl bg-gradient-to-br from-primary/10 via-gold-50 to-warm-50 border border-primary/20 p-8 text-center">
+                <Sparkles className="w-6 h-6 text-primary mx-auto mb-3" />
+                <h3 className="text-lg font-display font-bold mb-2">Unlock Your Full Journey</h3>
+                <p className="text-sm text-muted-foreground max-w-md mx-auto mb-4">Sign up for free to get personalized recommendations, save your favorites, and access exclusive content.</p>
+                <Link href="/signup" className="inline-flex items-center gap-1.5 px-6 py-2.5 rounded-full bg-primary text-primary-foreground text-sm font-medium hover:bg-primary/90 transition-colors">
+                  Sign Up Free <ArrowRight className="w-4 h-4" />
+                </Link>
+              </div>
             </div>
           </div>
         </section>
       </main>
       <Footer />
+
+      {/* Signup Modal after 5 views */}
+      {showSignup && (
+        <div className="fixed inset-0 z-[60] flex items-center justify-center bg-black/50 backdrop-blur-sm" onClick={() => setShowSignup(false)}>
+          <div className="bg-card border border-border rounded-2xl p-8 max-w-md mx-4 text-center shadow-2xl" onClick={e => e.stopPropagation()}>
+            <Sparkles className="w-8 h-8 text-primary mx-auto mb-4" />
+            <h3 className="text-xl font-display font-bold mb-2">You&apos;re Enjoying the Content!</h3>
+            <p className="text-sm text-muted-foreground mb-6">Create a free account to continue exploring, save your progress, and unlock personalized AI guidance.</p>
+            <Link href="/signup" className="inline-flex items-center gap-1.5 px-6 py-3 rounded-full bg-primary text-primary-foreground font-medium hover:bg-primary/90 transition-colors">
+              Sign Up Free <ArrowRight className="w-4 h-4" />
+            </Link>
+            <button onClick={() => setShowSignup(false)} className="block mx-auto mt-3 text-sm text-muted-foreground hover:text-foreground">
+              Maybe later
+            </button>
+          </div>
+        </div>
+      )}
     </>
   );
 }
